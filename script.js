@@ -11,29 +11,29 @@ const hexToRgb = (hex) => {
 const rgbToHex = ({ r, g, b }) =>
   `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
 
-const calculateIntermediateValue = (start, end, n, max) => {
+const calculateMidpointValue = (start, end, n, max) => {
   return Math.round(start + (n * (end - start)) / max);
 };
 
 const render = () => {
   const start = document.getElementById("start-color").value;
   const end = document.getElementById("end-color").value;
-  const intermediates = document.getElementById("intermediates").valueAsNumber;
+  const midpoints = document.getElementById("midpoints").valueAsNumber;
 
   const { r: startR, g: startG, b: startB } = hexToRgb(start);
   const { r: endR, g: endG, b: endB } = hexToRgb(end);
-  const intermediateColors = Array.apply(null, Array(intermediates))
+  const midpointColors = Array.apply(null, Array(midpoints))
     .map((_, index) => ({
-      r: calculateIntermediateValue(startR, endR, index + 1, intermediates + 1),
-      g: calculateIntermediateValue(startG, endG, index + 1, intermediates + 1),
-      b: calculateIntermediateValue(startB, endB, index + 1, intermediates + 1),
+      r: calculateMidpointValue(startR, endR, index + 1, midpoints + 1),
+      g: calculateMidpointValue(startG, endG, index + 1, midpoints + 1),
+      b: calculateMidpointValue(startB, endB, index + 1, midpoints + 1),
     }))
     .map(rgbToHex);
   document.querySelector(".start").style.backgroundColor = start;
   document.querySelector(".end").style.backgroundColor = end;
-  document.querySelector(".start .color-code").innerHTML = start;
-  document.querySelector(".end .color-code").innerHTML = end;
-  document.querySelector(".intermediate").innerHTML = intermediateColors
+  document.querySelector(".start .color-code").innerText = start;
+  document.querySelector(".end .color-code").innerText = end;
+  document.querySelector(".midpoints").innerHTML = midpointColors
     .map(
       (color) =>
         `<div style="background-color: ${color}">
@@ -43,11 +43,12 @@ const render = () => {
     .join("");
   document.querySelector(
     "main"
-  ).style.gridTemplateColumns = `1fr ${intermediates}fr 1fr`;
+  ).style.gridTemplateColumns = `1fr ${midpoints}fr 1fr`;
+  document.getElementById("number-of-colors").innerText = midpoints;
 };
 
 document
-  .querySelectorAll("#start-color,#end-color,#intermediates")
+  .querySelectorAll("#start-color,#end-color,#midpoints")
   .forEach((element) => {
     element.addEventListener("change", render);
   });

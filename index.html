@@ -4,27 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Intermediate color generator</title>
+    <title>Color midpoints generator</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="chrome">
       <header>
-        <input type="range" min="3" max="12" value="3" id="intermediates" />
+        <label for="midpoints">Number of colors</label>
+        <input type="range" min="3" max="12" value="5" id="midpoints" />
+        <span id="number-of-colors">7</span>
       </header>
       <main>
         <label class="start" for="start-color">
-          <input id="start-color" type="color" />
-          <div class="color-code">#000000</div>
+          <input id="start-color" type="color" value="#ff0000" />
+          <div class="color-code">#ff0000</div>
         </label>
-        <div class="intermediate">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <div class="midpoints"></div>
         <label class="end" for="end-color">
-          <input id="end-color" type="color" />
-          <div class="color-code">#000000</div>
+          <input id="end-color" type="color" value="#0000ff" />
+          <div class="color-code">#0000ff</div>
         </label>
       </main>
       <footer>Footer</footer>

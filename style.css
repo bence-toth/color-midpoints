@@ -2,11 +2,13 @@ html,
 body {
   height: 100%;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 .chrome {
   height: 100%;
   display: grid;
@@ -18,18 +20,22 @@ body {
     "main"
     "footer";
 }
+
 header {
   grid-area: header;
 }
+
 footer {
   grid-area: footer;
 }
+
 main {
   grid-area: main;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-gap: 1px;
 }
+
 .start,
 .end {
   position: relative;
@@ -38,28 +44,33 @@ main {
   justify-content: center;
   cursor: pointer;
 }
+
 .start:focus-within,
 .end:focus-within {
   outline: 2px solid black;
   box-shadow: 0 0 0 2px inset white;
 }
+
 .start input,
 .end input {
   width: 0;
   height: 0;
   opacity: 0;
 }
-.intermediate {
+
+.midpoints {
   display: grid;
   grid-auto-flow: column;
   grid-gap: 1px;
 }
-.intermediate > div {
+
+.midpoints > div {
   flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .color-code {
   background-color: white;
   color: black;
