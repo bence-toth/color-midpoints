@@ -11,17 +11,64 @@ const hexToRgb = (hex) => {
 const rgbToHex = ({ r, g, b }) =>
   `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
 
-const calculateMidpointValue = (start, end, n, max) => {
-  return Math.round(start + (n * (end - start)) / max);
+const calculateMidpointValue = (start, end, n, max) =>
+  Math.round(start + (n * (end - start)) / max);
+
+const isMobileQuery = "(max-width: 720px)";
+
+const elements = {
+  main: document.querySelector("main"),
+
+  midpointsWrapper: document.querySelector(".midpoints"),
+  numberOfMidpointsInput: document.getElementById("midpoints"),
+  numberOfColors: document.getElementById("number-of-colors"),
+
+  startWrapper: document.querySelector(".start"),
+  startColorInput: document.getElementById("start-color"),
+  startColorCode: document.querySelector(".start .color-code"),
+
+  endWrapper: document.querySelector(".end"),
+  endColorInput: document.getElementById("end-color"),
+  endColorCode: document.querySelector(".end .color-code"),
+};
+
+const generateMidpointColorMarkup = (color) =>
+  `<div style="background-color: ${color}">
+    <div class="color-code">${color}</div>
+  </div>`;
+
+const updateMarkup = ({ startColor, endColor, midpointColors }) => {
+  // Update number of colors
+  elements.numberOfColors.innerText = midpointColors.length + 2;
+
+  // Set layout
+  const isMobile = window.matchMedia(isMobileQuery).matches;
+  elements.main.style[isMobile ? "gridTemplateColumns" : "gridTemplateRows"] =
+    "1fr";
+  elements.main.style[
+    isMobile ? "gridTemplateRows" : "gridTemplateColumns"
+  ] = `1fr ${midpointColors.length}fr 1fr`;
+  elements.midpointsWrapper.style.gridAutoFlow = isMobile ? "row" : "column";
+
+  // Set colors and color codes
+  elements.startWrapper.style.backgroundColor = startColor;
+  elements.startColorCode.innerText = startColor;
+  elements.midpointsWrapper.innerHTML = midpointColors
+    .map(generateMidpointColorMarkup)
+    .join("");
+  elements.endWrapper.style.backgroundColor = endColor;
+  elements.endColorCode.innerText = endColor;
 };
 
 const render = () => {
-  const start = document.getElementById("start-color").value;
-  const end = document.getElementById("end-color").value;
-  const midpoints = document.getElementById("midpoints").valueAsNumber;
+  // Get data from inputs
+  const startColor = elements.startColorInput.value;
+  const endColor = elements.endColorInput.value;
+  const midpoints = elements.numberOfMidpointsInput.valueAsNumber;
 
-  const { r: startR, g: startG, b: startB } = hexToRgb(start);
-  const { r: endR, g: endG, b: endB } = hexToRgb(end);
+  // Calculate midpoint colors
+  const { r: startR, g: startG, b: startB } = hexToRgb(startColor);
+  const { r: endR, g: endG, b: endB } = hexToRgb(endColor);
   const midpointColors = Array.apply(null, Array(midpoints))
     .map((_, index) => ({
       r: calculateMidpointValue(startR, endR, index + 1, midpoints + 1),
@@ -29,47 +76,31 @@ const render = () => {
       b: calculateMidpointValue(startB, endB, index + 1, midpoints + 1),
     }))
     .map(rgbToHex);
-  document.querySelector(".start").style.backgroundColor = start;
-  document.querySelector(".end").style.backgroundColor = end;
-  document.querySelector(".start .color-code").innerText = start;
-  document.querySelector(".end .color-code").innerText = end;
-  document.querySelector(".midpoints").innerHTML = midpointColors
-    .map(
-      (color) =>
-        `<div style="background-color: ${color}">
-          <div class="color-code">${color}</div>
-        </div>`
-    )
-    .join("");
-  if (window.matchMedia("(max-width: 720px)").matches) {
-    document.querySelector("main").style.gridTemplateColumns = `1fr`;
-    document.querySelector(
-      "main"
-    ).style.gridTemplateRows = `1fr ${midpoints}fr 1fr`;
-    document.querySelector(".midpoints").style.gridAutoFlow = "row";
-  } else {
-    document.querySelector("main").style.gridTemplateRows = `1fr`;
-    document.querySelector(
-      "main"
-    ).style.gridTemplateColumns = `1fr ${midpoints}fr 1fr`;
-    document.querySelector(".midpoints").style.gridAutoFlow = "column";
-  }
 
-  document.getElementById("number-of-colors").innerText = midpoints;
+  // Update markup
+  updateMarkup({ startColor, endColor, midpointColors });
 };
 
-document
-  .querySelectorAll("#start-color,#end-color,#midpoints")
-  .forEach((element) => {
-    element.addEventListener("change", render);
-  });
-window.addEventListener("load", render);
+const setupEventListeners = () => {
+  // On inputs change
+  document
+    .querySelectorAll("#start-color,#end-color,#midpoints")
+    .forEach((element) => {
+      element.addEventListener("change", render);
+    });
 
-let wasMobile = window.matchMedia("(max-width: 720px)").matches;
-window.addEventListener("resize", () => {
-  const isMobile = window.matchMedia("(max-width: 720px)").matches;
-  if (wasMobile !== isMobile) {
-    wasMobile = isMobile;
-    render();
-  }
-});
+  // On resize (when switching between mobile and desktop)
+  let wasMobile = window.matchMedia(isMobileQuery).matches;
+  window.addEventListener("resize", () => {
+    const isMobile = window.matchMedia(isMobileQuery).matches;
+    if (wasMobile !== isMobile) {
+      wasMobile = isMobile;
+      render();
+    }
+  });
+
+  // On page load
+  window.addEventListener("load", render);
+};
+
+setupEventListeners();
