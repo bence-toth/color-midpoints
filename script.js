@@ -31,9 +31,19 @@ const render = () => {
     .map(rgbToHex);
   document.querySelector(".start").style.backgroundColor = start;
   document.querySelector(".end").style.backgroundColor = end;
+  document.querySelector(".start .color-code").innerHTML = start;
+  document.querySelector(".end .color-code").innerHTML = end;
   document.querySelector(".intermediate").innerHTML = intermediateColors
-    .map((color) => `<div style="background-color: ${color}"></div>`)
+    .map(
+      (color) =>
+        `<div style="background-color: ${color}">
+          <div class="color-code">${color}</div>
+        </div>`
+    )
     .join("");
+  document.querySelector(
+    "main"
+  ).style.gridTemplateColumns = `1fr ${intermediates}fr 1fr`;
 };
 
 document
