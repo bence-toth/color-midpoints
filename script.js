@@ -1,5 +1,3 @@
-const intermediates = 3;
-
 const hexToRgb = (hex) => {
   const regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
   const result = regex.exec(hex);
@@ -20,6 +18,7 @@ const calculateIntermediateValue = (start, end, n, max) => {
 const render = () => {
   const start = document.getElementById("start-color").value;
   const end = document.getElementById("end-color").value;
+  const intermediates = document.getElementById("intermediates").valueAsNumber;
 
   const { r: startR, g: startG, b: startB } = hexToRgb(start);
   const { r: endR, g: endG, b: endB } = hexToRgb(end);
@@ -37,7 +36,9 @@ const render = () => {
     .join("");
 };
 
-document.querySelectorAll("#start-color,#end-color").forEach((element) => {
-  element.addEventListener("change", render);
-});
+document
+  .querySelectorAll("#start-color,#end-color,#intermediates")
+  .forEach((element) => {
+    element.addEventListener("change", render);
+  });
 window.addEventListener("load", render);
