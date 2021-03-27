@@ -41,9 +41,20 @@ const render = () => {
         </div>`
     )
     .join("");
-  document.querySelector(
-    "main"
-  ).style.gridTemplateColumns = `1fr ${midpoints}fr 1fr`;
+  if (window.matchMedia("(max-width: 720px)").matches) {
+    document.querySelector("main").style.gridTemplateColumns = `1fr`;
+    document.querySelector(
+      "main"
+    ).style.gridTemplateRows = `1fr ${midpoints}fr 1fr`;
+    document.querySelector(".midpoints").style.gridAutoFlow = "row";
+  } else {
+    document.querySelector("main").style.gridTemplateRows = `1fr`;
+    document.querySelector(
+      "main"
+    ).style.gridTemplateColumns = `1fr ${midpoints}fr 1fr`;
+    document.querySelector(".midpoints").style.gridAutoFlow = "column";
+  }
+
   document.getElementById("number-of-colors").innerText = midpoints;
 };
 
@@ -53,3 +64,12 @@ document
     element.addEventListener("change", render);
   });
 window.addEventListener("load", render);
+
+let wasMobile = window.matchMedia("(max-width: 720px)").matches;
+window.addEventListener("resize", () => {
+  const isMobile = window.matchMedia("(max-width: 720px)").matches;
+  if (wasMobile !== isMobile) {
+    wasMobile = isMobile;
+    render();
+  }
+});
