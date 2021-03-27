@@ -37,6 +37,11 @@ main {
   justify-content: center;
   cursor: pointer;
 }
+.start:focus-within,
+.end:focus-within {
+  outline: 2px solid black;
+  box-shadow: 0 0 0 2px inset white;
+}
 .start input,
 .end input {
   width: 0;
