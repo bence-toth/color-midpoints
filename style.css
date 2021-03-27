@@ -29,11 +29,18 @@ main {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
 }
-.start {
-  background-color: red;
-}
+.start,
 .end {
-  background-color: blue;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.start input,
+.end input {
+  width: 0;
+  height: 0;
+  opacity: 0;
 }
 .intermediate {
   display: flex;
