@@ -133,6 +133,12 @@ footer {
   justify-content: center;
 }
 
+footer a {
+  font-size: 14px;
+  color: #2b2b2b;
+  cursor: pointer;
+}
+
 @media (max-width: 720px) {
   .chrome {
     grid-template-rows: 120px 1fr 40px;
