@@ -163,5 +163,6 @@ footer {
   .label {
     left: 0;
     top: auto;
+    margin-left: 1em;
   }
 }
