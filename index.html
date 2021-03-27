@@ -10,17 +10,22 @@
   <body>
     <div class="chrome">
       <header>
-        <label for="midpoints">Number of colors</label>
-        <input type="range" min="3" max="12" value="5" id="midpoints" />
-        <span id="number-of-colors">7</span>
+        <h1>Color midpoints generator</h1>
+        <div class="number-of-midpoints-form">
+          <label for="midpoints">Number of colors</label>
+          <input type="range" min="3" max="12" value="5" id="midpoints" />
+          <span id="number-of-colors">7</span>
+        </div>
       </header>
       <main>
         <label class="start" for="start-color">
+          <span class="label">Select start color</span>
           <input id="start-color" type="color" value="#ff0000" />
           <div class="color-code">#ff0000</div>
         </label>
         <div class="midpoints"></div>
         <label class="end" for="end-color">
+          <span class="label">Select end color</span>
           <input id="end-color" type="color" value="#0000ff" />
           <div class="color-code">#0000ff</div>
         </label>

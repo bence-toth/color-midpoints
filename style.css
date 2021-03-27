@@ -1,9 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&family=Poppins:wght@300;400;500&display=swap");
 
 html,
 body {
   height: 100%;
   font-family: "Poppins", sans-serif;
+  font-size: 16px;
+}
+
+body {
+  background-color: #f2f2f2;
 }
 
 * {
@@ -26,17 +31,41 @@ body {
 
 header {
   grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
+  line-height: 1;
+  user-select: none;
 }
 
-footer {
-  grid-area: footer;
+h1 {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.number-of-midpoints-form {
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+}
+
+.number-of-midpoints-form input {
+  margin-left: 0.75em;
+}
+
+#number-of-colors {
+  min-width: 2em;
+  text-align: center;
 }
 
 main {
   grid-area: main;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-gap: 1px;
+  grid-gap: 2px;
+  overflow: hidden;
+  overflow-x: auto;
 }
 
 .start,
@@ -61,10 +90,24 @@ main {
   opacity: 0;
 }
 
+.start .label,
+.end .label {
+  position: absolute;
+  top: 1.5em;
+  text-align: center;
+  background-color: #f2f2f2;
+  color: #2b2b2b;
+  padding: 0.25em 0.5em;
+  line-height: 1.25;
+  margin: 0 0.5em;
+  user-select: none;
+  font-weight: 500;
+}
+
 .midpoints {
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 1px;
+  grid-gap: 2px;
 }
 
 .midpoints > div {
@@ -75,7 +118,14 @@ main {
 }
 
 .color-code {
-  background-color: white;
-  color: black;
+  font-family: "Inconsolata", monospace;
+  background-color: #f2f2f2;
+  color: #2b2b2b;
   padding: 0.5em;
+  font-weight: 500;
+}
+
+footer {
+  grid-area: footer;
+  user-select: none;
 }
