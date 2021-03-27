@@ -9,6 +9,7 @@ body {
 
 body {
   background-color: #f2f2f2;
+  color: #2b2b2b;
 }
 
 * {
@@ -95,7 +96,6 @@ main {
   top: 1.5em;
   text-align: center;
   background-color: #f2f2f2;
-  color: #2b2b2b;
   padding: 0.25em 0.5em;
   line-height: 1.25;
   margin: 0 0.5em;
@@ -120,7 +120,6 @@ main {
 .color-code {
   font-family: "Inconsolata", monospace;
   background-color: #f2f2f2;
-  color: #2b2b2b;
   padding: 0.5em;
   font-weight: 500;
 }
@@ -135,7 +134,7 @@ footer {
 
 footer a {
   font-size: 14px;
-  color: #2b2b2b;
+  color: inherit;
   cursor: pointer;
 }
 
@@ -170,5 +169,25 @@ footer a {
     left: 0;
     top: auto;
     margin-left: 1em;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: #d4d4d4;
+  }
+  .start:focus-within,
+  .end:focus-within {
+    outline: 2px solid white;
+    box-shadow: 0 0 0 2px inset black;
+  }
+  .label {
+    background-color: black;
+    color: #d4d4d4;
+  }
+  .color-code {
+    background-color: black;
+    color: #d4d4d4;
   }
 }
