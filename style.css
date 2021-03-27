@@ -8,7 +8,6 @@ body {
   box-sizing: border-box;
 }
 .chrome {
-  width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: 1fr;
@@ -27,4 +26,18 @@ footer {
 }
 main {
   grid-area: main;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+.start {
+  background-color: red;
+}
+.end {
+  background-color: blue;
+}
+.intermediate {
+  display: flex;
+}
+.intermediate > div {
+  flex-grow: 1;
 }
